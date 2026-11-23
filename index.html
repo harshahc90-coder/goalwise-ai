@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GoalWise AI</title>
+<style>
+:root{--bg:#f6f7fc;--card:#fff;--tx:#1d2140;--mu:#6b7191;--ln:#e5e8f3;--b:#3b6cf6;--p:#7c4dff;--g:#1fa67a;--w:#e8a13a;--r:#e5605a;--sh:0 1px 2px rgba(40,50,110,.06),0 6px 20px rgba(40,50,110,.06);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12142a;--card:#1b1e3a;--tx:#eceefb;--mu:#9aa0c8;--ln:#2b2f55;--sh:none}}
+:root[data-theme="dark"]{--bg:#12142a;--card:#1b1e3a;--tx:#eceefb;--mu:#9aa0c8;--ln:#2b2f55;--sh:none}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1,h2,h3{margin:0 0 .4em;line-height:1.2;letter-spacing:-.02em}h1{font-size:2.6rem}h2{font-size:1.5rem}h3{font-size:1.05rem}
+p{margin:.3em 0}.mu{color:var(--mu)}.sm{font-size:.85rem}
+.app{display:flex;min-height:100vh}
+nav{width:220px;padding:20px 14px;background:var(--card);border-right:1px solid var(--ln);position:sticky;top:0;height:100vh;flex:none}
+.logo{font-weight:800;font-size:1.15rem;padding:4px 10px 18px;background:linear-gradient(90deg,var(--b),var(--p));-webkit-background-clip:text;background-clip:text;color:transparent}
+nav a{display:block;padding:9px 12px;border-radius:10px;color:var(--mu);text-decoration:none;font-weight:600;margin-bottom:2px}
+nav a.on{background:linear-gradient(90deg,rgba(59,108,246,.14),rgba(124,77,255,.14));color:var(--b)}
+main{flex:1;padding:28px;max-width:1100px;min-width:0}
+.grid{display:grid;gap:16px}.g4{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:16px;padding:18px;box-shadow:var(--sh)}
+.stat b{display:block;font-size:2rem;letter-spacing:-.03em}
+.btn{border:0;border-radius:10px;padding:9px 16px;font:inherit;font-weight:600;cursor:pointer;background:linear-gradient(90deg,var(--b),var(--p));color:#fff;transition:filter .15s}
+.btn:hover{filter:brightness(1.08)}.btn.o{background:transparent;color:var(--tx);border:1px solid var(--ln)}.btn.gr{background:var(--g)}.btn.rd{background:transparent;color:var(--r);border:1px solid var(--r)}
+.btn:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--p);outline-offset:2px}
+label{display:block;font-weight:600;font-size:.85rem;margin:12px 0 4px}
+input,select,textarea{width:100%;padding:9px 11px;border:1px solid var(--ln);border-radius:10px;background:var(--bg);color:var(--tx);font:inherit}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.row>*{flex:1;min-width:130px}.row>.btn{flex:none}
+.err{color:var(--r);font-size:.85rem;margin-top:8px}
+.tag{display:inline-block;padding:2px 9px;border-radius:99px;font-size:.78rem;font-weight:600}
+.done{background:rgba(31,166,122,.15);color:var(--g)}.part{background:rgba(232,161,58,.18);color:#b9741a}.skip{background:rgba(229,96,90,.15);color:var(--r)}
+.wk{display:flex;gap:8px;align-items:flex-end;height:140px;margin-top:10px}
+.wk div{flex:1;text-align:center;font-size:.72rem;color:var(--mu);display:flex;flex-direction:column;justify-content:flex-end;height:100%}
+.wk i{display:block;border-radius:8px 8px 3px 3px;margin-bottom:4px;transition:height .4s}
+.bar{height:9px;border-radius:9px;background:var(--ln);overflow:hidden;margin:3px 0 9px}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--b),var(--p))}
+.ins{border-left:4px solid var(--p);padding:4px 0 4px 14px;margin:14px 0}
+.ev{font-size:.85rem;color:var(--mu);margin:2px 0 0;padding-left:18px}
+.sug{background:linear-gradient(135deg,rgba(59,108,246,.1),rgba(31,166,122,.12))}
+table{width:100%;border-collapse:collapse;font-size:.88rem}td,th{padding:8px 6px;border-bottom:1px solid var(--ln);text-align:left}th{color:var(--mu);font-weight:600}
+.tbl{overflow-x:auto}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;max-width:760px;margin:0 auto;padding:30px 22px}
+.hero h1{font-size:clamp(2.2rem,6vw,3.6rem)}.hero .tg{font-size:1.2rem;color:var(--mu);margin:14px 0 26px}
+.auth{max-width:400px;margin:8vh auto;padding:0 16px}
+.toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:10px 18px;border-radius:10px;z-index:9}
+.top{display:none}
+@media (max-width:760px){.app{flex-direction:column}nav{width:100%;height:auto;position:sticky;top:0;z-index:5;display:flex;overflow-x:auto;padding:8px;border-right:0;border-bottom:1px solid var(--ln);gap:4px}.logo{display:none}nav a{white-space:nowrap;margin:0}main{padding:16px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body><div id="root"></div>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const KEY='goalwise-v1',DAY=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+function ds(o){const d=new Date();d.setDate(d.getDate()+o);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function seed(){const L=[[-6,'done',120,'','Great first session'],[-5,'done',110,'',''],[-4,'skip',0,'College workload','Lab record due'],[-3,'skip',0,'Tiredness',''],[-2,'part',30,'','Only had half an hour'],[-1,'done',100,'',''],[0,'skip',0,'Lack of time','Family event']];
+return{user:null,uid:50,theme:'auto',avail:90,pref:'Short daily sessions',sel:1,dismissed:{},
+goals:[{id:1,title:'Learn Python in 30 days',desc:'Finish Python basics with daily practice',cat:'Education',days:30,target:120,freq:'Daily',avail:120,plan:''}],
+logs:L.map((x,i)=>({id:i+1,goalId:1,date:ds(x[0]),status:x[1],mins:x[2],reason:x[3],note:x[4]}))}}
+let S=null;try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}if(!S)S=seed();
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+function theme(){const r=document.documentElement;S.theme==='auto'?r.removeAttribute('data-theme'):r.setAttribute('data-theme',S.theme)}
+function toast(m){const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2200)}
+const go=r=>{location.hash=r};const route=()=>location.hash.slice(1)||'home';
+const lbl={done:'Completed',part:'Partial',skip:'Skipped'};
+const tag=s=>`<span class="tag ${s}">${lbl[s]}</span>`;
+const goal=id=>S.goals.find(g=>g.id==id);
+const logsOf=id=>S.logs.filter(l=>l.goalId==id).sort((a,b)=>a.date<b.date?-1:1);
+const score=l=>l.status==='done'?1:l.status==='part'?.5:0;
+const fmt=d=>{const x=new Date(d+'T00:00:00');return DAY[x.getDay()]+' '+x.getDate()+'/'+(x.getMonth()+1)};
+function theme_of(r){r=(r||'').toLowerCase();
+ if(/work|college|exam|assign|time|commit|busy|schedul|meeting|family/.test(r))return'Workload and time pressure';
+ if(/tired|sleep|energy|fatigue|exhaust/.test(r))return'Tiredness';
+ if(/motiv|bored|lazy|mood/.test(r))return'Low motivation';
+ if(/difficult|hard|tough|too much/.test(r))return'Target felt too hard';
+ return r?'Other reasons':'No reason given'}
+function analyze(g){
+ const L=logsOf(g.id);if(L.length<4)return{thin:true,n:L.length};
+ const n=L.length,miss=L.filter(l=>l.status!=='done'),sk=L.filter(l=>l.status==='skip'),done=n-miss.length;
+ const th={};sk.forEach(l=>{const t=theme_of(l.reason);(th[t]=th[t]||[]).push(l)});
+ const ins=[];
+ Object.entries(th).sort((a,b)=>b[1].length-a[1].length).forEach(([t,a])=>{if(a.length>=2&&t!=='No reason given')ins.push({t:t+' came up '+a.length+' times',x:'You reported this as a reason for skipping. It may be a recurring obstacle, though '+n+' entries is a small sample.',ev:a.map(l=>fmt(l.date)+': skipped, "'+(l.reason||'')+'"')})});
+ const rate=done/n;
+ if(g.target>60&&miss.length/n>=.4){const pm=L.filter(l=>l.status==='part'&&l.mins);ins.push({t:'The '+g.target+'-minute target may be too ambitious',x:'You hit the full target on '+done+' of '+n+' days. A smaller target might be easier to keep. This is a pattern in your entries, not a verdict.',ev:['Full target met: '+done+' of '+n+' days ('+Math.round(rate*100)+'%)'].concat(pm.map(l=>fmt(l.date)+': partial, '+l.mins+' min'))})}
+ if(!ins.length)ins.push({t:'No clear obstacle yet',x:'Your entries don’t show a repeated reason. Keep logging reasons when you skip, and patterns will become clearer.',ev:['Completed '+done+' of '+n+' entries']});
+ const need=miss.length/n>=.4,wk=Math.max(15,Math.round(g.target/20)*5),we=Math.max(wk,Math.round(g.target/10)*5);
+ return{n,done,rate,ins,th,sug:need&&g.target>30?{wk,we}:null}}
+function weekScore(){const w=S.logs.filter(l=>l.date>=ds(-6));return w.length?Math.round(w.reduce((a,l)=>a+score(l),0)/w.length*100):0}
+function wkChart(gid){let h='<div class="wk">';for(let o=-6;o<=0;o++){const d=ds(o),l=S.logs.filter(x=>x.date===d&&(!gid||x.goalId==gid));const s=l.length?Math.max(...l.map(score)):-1;const c=s===1?'var(--g)':s===.5?'var(--w)':s===0?'var(--r)':'var(--ln)';const ht=s<0?6:s===0?10:s*100;h+=`<div><i style="height:${ht}%;background:${c}"></i>${DAY[new Date(d+'T00:00:00').getDay()]}</div>`}return h+'</div><p class="sm mu">Green = completed, amber = partial, red = skipped, grey = no entry</p>'}
+function bars(o,max){const m=max||Math.max(1,...Object.values(o));return Object.entries(o).map(([k,v])=>`<div class="sm">${esc(k)} <b>${v}</b></div><div class="bar"><i style="width:${v/m*100}%"></i></div>`).join('')||'<p class="mu sm">Nothing to show yet.</p>'}
+function reasonCount(){const o={};S.logs.filter(l=>l.status==='skip').forEach(l=>{const r=l.reason||'No reason given';o[r]=(o[r]||0)+1});return o}
+function missDays(g){const L=logsOf(g.id).filter(l=>l.status!=='skip'&&score(l)>0);if(!L.length)return 0;const last=new Date(L[L.length-1].date+'T00:00:00'),t=new Date(ds(0)+'T00:00:00');return Math.round((t-last)/864e5)}
+
+/* pages */
+function pDash(){const L=S.logs,dn=L.filter(l=>l.status==='done').length,sk=L.filter(l=>l.status==='skip').length,g=S.goals[0],a=g&&analyze(g);
+ return`<div class="row"><div><h2>Hi ${esc(S.user.
